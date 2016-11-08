@@ -30,9 +30,12 @@ public class SequenceExtractor {
         Node node = new Node(from);
         if (isVowel(node.getCode()) && maxVowels == 0) {
             return sequences;
-        } else {
+        }
+
+        if (isVowel(node.getCode())) {
             currentVowels++;
         }
+
         sequence.push(node);
         currentLength++;
 
@@ -126,9 +129,9 @@ public class SequenceExtractor {
                 throw new IllegalStateException("Maximum allowed vowels in the sequence must be non negative");
 
             }
-            if (!table.containsKey(from)) {
-                throw new IllegalStateException("Key " + from + " is not in the movement table");
-            }
+//            if (!table.containsKey(from)) {
+//                throw new IllegalStateException("Key " + from + " is not in the movement table");
+//            }
             return new SequenceExtractor(table, from, length, vowels);
         }
     }
