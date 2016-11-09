@@ -14,11 +14,11 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnitParamsRunner.class)
 public class SequenceExtractorTest {
 
-    private static MovementTable movementTable;
+    private static MovementTable simpleMovementTable;
 
     @BeforeClass
     public static void setup() {
-        movementTable = MovementTableFactory.simpleMovementTable();
+        simpleMovementTable = MovementTableFactory.simpleMovementTable();
     }
 
     @Test
@@ -30,7 +30,7 @@ public class SequenceExtractorTest {
     @Test
     @FileParameters("classpath:simple_keypad_extractor_test_cases.csv")
     public void shouldReturnCorrectNumberOfSequences(char origin, int length, int vowels, long expected) {
-        SequenceExtractor extractor = SequenceExtractor.forMovementTable(movementTable).from(origin).length(length).vowels(vowels).create();
+        SequenceExtractor extractor = SequenceExtractor.forMovementTable(simpleMovementTable).from(origin).length(length).vowels(vowels).create();
         long sequences = extractor.getNumberOfSequences();
         assertThat(sequences, is(equalTo(expected)));
     }
