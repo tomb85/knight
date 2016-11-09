@@ -18,7 +18,7 @@ public class SequenceExtractorTest {
 
     @BeforeClass
     public static void setup() {
-        movementTable = TestUtils.simpleMovementTable();
+        movementTable = MovementTableFactory.simpleMovementTable();
     }
 
     @Test

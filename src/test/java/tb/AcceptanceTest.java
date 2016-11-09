@@ -19,7 +19,7 @@ public class AcceptanceTest {
 
     @BeforeClass
     public static void setup() {
-        movementTable = TestUtils.simpleMovementTable();
+        movementTable = MovementTableFactory.simpleMovementTable();
     }
 
     @Test
