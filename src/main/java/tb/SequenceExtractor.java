@@ -1,6 +1,5 @@
 package tb;
 
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -74,7 +73,7 @@ public class SequenceExtractor {
         if (currentLength == length) {
             return null;
         }
-        Set<Character> visited = node.getVisitedChildren();
+        Set<Character> visited = node.getChildren();
         for (char destination : table.getDestinationsFrom(node.getCode())) {
             if (!visited.contains(destination)) {
                 if (isVowel(destination)) {

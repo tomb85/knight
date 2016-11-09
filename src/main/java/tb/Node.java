@@ -27,7 +27,7 @@ public class Node {
         return code;
     }
 
-    public Set<Character> getVisitedChildren() {
+    public Set<Character> getChildren() {
         return children;
     }
 

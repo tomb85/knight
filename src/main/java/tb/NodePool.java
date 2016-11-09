@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,6 +35,5 @@ public class NodePool {
 
     public boolean contains(char code) {
         return nodes.keySet().contains(code);
-
     }
 }

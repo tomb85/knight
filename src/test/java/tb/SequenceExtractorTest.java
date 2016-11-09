@@ -22,8 +22,8 @@ public class SequenceExtractorTest {
     }
 
     @Test
-//    @Ignore
-    public void test() {
+    @Ignore
+    public void checkFromSingleSource() {
         shouldReturnCorrectNumberOfSequences('B', 32, 2, 1);
     }
 

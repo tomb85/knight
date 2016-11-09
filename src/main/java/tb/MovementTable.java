@@ -16,10 +16,6 @@ public class MovementTable {
         movements.put(from, to);
     }
 
-    public boolean containsKey(char key) {
-        return movements.containsKey(key);
-    }
-
     public Collection<Character> getDestinationsFrom(char code) {
         return movements.get(code);
     }

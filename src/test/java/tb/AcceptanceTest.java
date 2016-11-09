@@ -34,5 +34,4 @@ public class AcceptanceTest {
     private SequenceExtractor extractorForKey(Character code, int length, int vowels) {
         return SequenceExtractor.forMovementTable(movementTable).from(code).length(length).vowels(vowels).create();
     }
-
 }
