@@ -1,4 +1,4 @@
-package tb;
+package tb.knight.node;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

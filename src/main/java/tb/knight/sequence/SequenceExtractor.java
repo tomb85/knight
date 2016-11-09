@@ -1,4 +1,8 @@
-package tb;
+package tb.knight.sequence;
+
+import tb.knight.model.MovementTable;
+import tb.knight.node.Node;
+import tb.knight.node.NodePool;
 
 import java.util.Set;
 import java.util.Stack;
@@ -96,7 +100,7 @@ public class SequenceExtractor {
         return "AEIOUaeiou".indexOf(code) != -1;
     }
 
-    static class Builder {
+    public static class Builder {
 
         private final MovementTable table;
         private char from;

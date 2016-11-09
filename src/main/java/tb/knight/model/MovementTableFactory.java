@@ -1,4 +1,4 @@
-package tb;
+package tb.knight.model;
 
 public class MovementTableFactory {
 

@@ -1,11 +1,9 @@
-package tb;
+package tb.knight.model;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 public class MovementTable {

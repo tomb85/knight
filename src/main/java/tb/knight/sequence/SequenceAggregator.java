@@ -1,4 +1,4 @@
-package tb;
+package tb.knight.sequence;
 
 import com.google.common.collect.Lists;
 

@@ -1,4 +1,4 @@
-package tb;
+package tb.knight.model;
 
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.builder.EqualsBuilder;

@@ -6,6 +6,9 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import tb.knight.model.MovementTable;
+import tb.knight.model.MovementTableFactory;
+import tb.knight.sequence.SequenceExtractor;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
