@@ -24,12 +24,12 @@ public class SequenceExtractorTest {
     @Test
 //    @Ignore
     public void test() {
-        shouldReturnCorrectNumberOfSequencesPerOrigin('B', 32, 2, 1);
+        shouldReturnCorrectNumberOfSequences('B', 32, 2, 1);
     }
 
     @Test
-    @FileParameters("classpath:simple_keypad_test_cases.csv")
-    public void shouldReturnCorrectNumberOfSequencesPerOrigin(char origin, int length, int vowels, long expected) {
+    @FileParameters("classpath:simple_keypad_extractor_test_cases.csv")
+    public void shouldReturnCorrectNumberOfSequences(char origin, int length, int vowels, long expected) {
         SequenceExtractor extractor = SequenceExtractor.forMovementTable(movementTable).from(origin).length(length).vowels(vowels).create();
         long sequences = extractor.getNumberOfSequences();
         assertThat(sequences, is(equalTo(expected)));
