@@ -9,26 +9,25 @@ import java.util.Set;
 public class Node {
 
     private final char code;
-    private final Set<Node> children = Sets.newHashSet();
-    private boolean done;
+    private final Set<Character> children = Sets.newHashSet();
 
     public Node(char code) {
         this.code = code;
     }
 
-    public void done() {
-        this.done = true;
+    public void clear() {
+        children.clear();
     }
 
     public void addChild(Node child) {
-        children.add(child);
+        children.add(child.getCode());
     }
 
     public char getCode() {
         return code;
     }
 
-    public Set<Node> getVisitedChildren() {
+    public Set<Character> getVisitedChildren() {
         return children;
     }
 
@@ -37,4 +36,3 @@ public class Node {
         return String.valueOf(code);
     }
 }
-

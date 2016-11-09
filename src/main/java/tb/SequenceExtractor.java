@@ -3,9 +3,10 @@ package tb;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
 public class SequenceExtractor {
+
+    private NodePool pool;
 
     private final Stack<Node> sequence = new Stack<>();
     private final MovementTable table;
@@ -21,13 +22,18 @@ public class SequenceExtractor {
         this.from = from;
         this.length = length;
         this.maxVowels = maxVowels;
+        pool = new NodePool(table.getKeys(), length);
     }
 
     public long getNumberOfSequences() {
 
         long sequences = 0;
 
-        Node node = new Node(from);
+        if (!pool.contains(from)) {
+            return sequences;
+        }
+
+        Node node = pool.checkOut(from);
         if (isVowel(node.getCode()) && maxVowels == 0) {
             return sequences;
         }
@@ -51,12 +57,9 @@ public class SequenceExtractor {
                 }
             } else {
                 if (currentLength == length) {
-                    StringBuilder builder = new StringBuilder();
-                    sequence.stream().forEach(n -> builder.append(n.getCode()));
-                    System.out.println(builder.toString());
                     sequences++;
                 }
-                current.done();
+                pool.checkIn(current);
                 sequence.pop();
                 currentLength--;
                 if (isVowel(current.getCode())) {
@@ -71,16 +74,15 @@ public class SequenceExtractor {
         if (currentLength == length) {
             return null;
         }
-        List<Character> destinations = table.getDestinationsFrom(node.getCode());
-        Set<Character> visited = node.getVisitedChildren().stream().map(n -> n.getCode()).collect(Collectors.toSet());
-        for (char destination : destinations) {
+        Set<Character> visited = node.getVisitedChildren();
+        for (char destination : table.getDestinationsFrom(node.getCode())) {
             if (!visited.contains(destination)) {
                 if (isVowel(destination)) {
                     if (currentVowels != maxVowels) {
-                        return new Node(destination);
+                        return pool.checkOut(destination);
                     }
                 } else {
-                    return new Node(destination);
+                    return pool.checkOut(destination);
                 }
             }
         }
@@ -129,9 +131,6 @@ public class SequenceExtractor {
                 throw new IllegalStateException("Maximum allowed vowels in the sequence must be non negative");
 
             }
-//            if (!table.containsKey(from)) {
-//                throw new IllegalStateException("Key " + from + " is not in the movement table");
-//            }
             return new SequenceExtractor(table, from, length, vowels);
         }
     }

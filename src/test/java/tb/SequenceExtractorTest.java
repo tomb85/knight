@@ -3,6 +3,7 @@ package tb;
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,51 +18,13 @@ public class SequenceExtractorTest {
 
     @BeforeClass
     public static void setup() {
-        movementTable = simpleMovementTable();
-    }
-
-
-    /*
-
-    Simple keypad
-
-    x---x---x
-    | A | B |
-    x---x---x---x
-    | C | D | E |
-    x---x---x---x
-    | F | G | H |
-    x---x---x---x
-
-     */
-
-    private static MovementTable simpleMovementTable() {
-        MovementTable table = new MovementTable();
-        table.addMovement('A', 'E');
-        table.addMovement('A', 'G');
-
-        table.addMovement('B', 'F');
-        table.addMovement('B', 'H');
-
-        table.addMovement('C', 'H');
-
-        table.addMovement('E', 'A');
-        table.addMovement('E', 'F');
-
-        table.addMovement('F', 'B');
-        table.addMovement('F', 'E');
-
-        table.addMovement('G', 'A');
-
-        table.addMovement('H', 'B');
-        table.addMovement('H', 'C');
-
-        return table;
+        movementTable = TestUtils.simpleMovementTable();
     }
 
     @Test
+//    @Ignore
     public void test() {
-        shouldReturnCorrectNumberOfSequencesPerOrigin('G', 4, 2, 1);
+        shouldReturnCorrectNumberOfSequencesPerOrigin('B', 32, 2, 1);
     }
 
     @Test

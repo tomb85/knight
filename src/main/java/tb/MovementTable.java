@@ -4,7 +4,9 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class MovementTable {
 
@@ -18,7 +20,11 @@ public class MovementTable {
         return movements.containsKey(key);
     }
 
-    public List<Character> getDestinationsFrom(char code) {
-        return Lists.newArrayList(movements.get(code));
+    public Collection<Character> getDestinationsFrom(char code) {
+        return movements.get(code);
+    }
+
+    public Set<Character> getKeys() {
+        return movements.keySet();
     }
 }
