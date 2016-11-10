@@ -18,7 +18,7 @@ public class NodePool {
 
     private LinkedList<Node> createNodes(Character code, int length) {
         LinkedList<Node> nodes = Lists.newLinkedList();
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length * length; i++) {
             nodes.push(new Node(code));
         }
         return nodes;

@@ -1,9 +1,11 @@
 package tb.knight.sequence;
 
+import com.google.common.collect.Maps;
 import tb.knight.model.MovementTable;
 import tb.knight.node.Node;
 import tb.knight.node.NodePool;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -20,12 +22,119 @@ public class SequenceExtractor {
     private int currentLength;
     private int currentVowels;
 
+    private Map<Character, SequenceInfo> sequenceInfos = Maps.newHashMap();
+    private SequenceInfo minSequenceInfo;
+
     public SequenceExtractor(MovementTable table, char from, int length, int maxVowels) {
         this.table = table;
         this.from = from;
         this.length = length;
         this.maxVowels = maxVowels;
         pool = new NodePool(table.getKeys(), length);
+    }
+
+    public long getNumberOfSequences2() {
+
+        long total = 0;
+
+        // create initial node
+
+        Node node = pool.checkOut(from);
+        if (isVowel(from)) {
+            sequenceInfos.put(from, new SequenceInfo(from, 1, 1));
+        } else {
+            sequenceInfos.put(from, new SequenceInfo(from, 1, 0));
+        }
+        minSequenceInfo = sequenceInfos.get(from);
+        sequence.push(node);
+
+        while (!sequence.isEmpty()) {
+            Node current = sequence.peek();
+            Node next = getNext2(current);
+            if (next != null) {
+                boolean discovered = incrementSequenceInfos(next);
+                if (discovered) {
+                    total++;
+                }
+                if (!sequenceInfos.containsKey(next.getCode())) {
+                    if (isVowel(next.getCode())) {
+                        sequenceInfos.put(next.getCode(), new SequenceInfo(next.getCode(), 1, 1));
+                    } else {
+                        sequenceInfos.put(next.getCode(), new SequenceInfo(next.getCode(), 1, 0));
+                    }
+                    minSequenceInfo = sequenceInfos.get(next.getCode());
+                }
+                current.addChild(next);
+                sequence.push(next);
+            } else {
+                decrementSequenceInfos(current);
+                pool.checkIn(current);
+                sequence.pop();
+            }
+        }
+
+        return total;
+    }
+
+    private boolean incrementSequenceInfos(Node node) {
+        boolean discovered = false;
+        SequenceInfo min = null;
+        for (SequenceInfo info : sequenceInfos.values()) {
+            if (info.active()) {
+                info.incrementLength();
+                if (isVowel(node.getCode())) {
+                    info.incrementVowel();
+                }
+                if (info.getLength() == length && info.getVowels() <= maxVowels) {
+                    discovered = true;
+                }
+                if (min != null) {
+                    if (info.getLength() < min.getLength()) {
+                        min = info;
+                    } else if (info.getLength() == min.getLength()) {
+                        if (info.getVowels() < min.getVowels()) {
+                            min = info;
+                        }
+                    }
+                } else {
+                    min = info;
+                }
+            }
+        }
+        minSequenceInfo = min;
+        return discovered;
+    }
+
+    private void decrementSequenceInfos(Node node) {
+        for (SequenceInfo info : sequenceInfos.values()) {
+            if (info.active()) {
+                info.decrementLength();
+                if (isVowel(node.getCode())) {
+                    info.decrementVowel();
+                }
+                if (info.getLength() == 0) {
+                    info.deactivate();
+                }
+            }
+        }
+    }
+
+    private Node getNext2(Node node) {
+        if (minSequenceInfo.getLength() < length) {
+            Set<Character> visited = node.getChildren();
+            for (char destination : table.getDestinationsFrom(node.getCode())) {
+                if (!visited.contains(destination)) {
+                    if (isVowel(destination)) {
+                        if (minSequenceInfo.getVowels() < maxVowels) {
+                            return pool.checkOut(destination);
+                        }
+                    } else {
+                        return pool.checkOut(destination);
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public long getNumberOfSequences() {
