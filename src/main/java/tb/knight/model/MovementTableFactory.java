@@ -74,20 +74,4 @@ public class MovementTableFactory {
 
         return keypad.asMovementTable();
     }
-
-    public static MovementTable verySimpleMovementTable() {
-        MovementTable table = new MovementTable();
-        table.addMovement('A', 'B');
-        table.addMovement('A', 'E');
-
-        table.addMovement('B', 'A');
-        table.addMovement('B', 'C');
-
-        table.addMovement('C', 'B');
-        table.addMovement('C', 'E');
-
-        table.addMovement('E', 'A');
-        table.addMovement('E', 'C');
-        return table;
-    }
 }

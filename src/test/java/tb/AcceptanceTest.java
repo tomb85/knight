@@ -19,6 +19,7 @@ public class AcceptanceTest {
     public static void setup() {
         movementTable = MovementTableFactory.movementTable();
     }
+
     @Test
     public void endToEndTestForMainKeypad() throws ExecutionException, InterruptedException {
         SequenceAggregator aggregator = new SequenceAggregator();

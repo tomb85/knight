@@ -3,7 +3,6 @@ package tb;
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import tb.knight.model.MovementTable;
@@ -18,18 +17,10 @@ import static org.junit.Assert.assertThat;
 public class SequenceExtractorTest {
 
     private static MovementTable simpleMovementTable;
-    private static MovementTable verySimpleMovementTable;
 
     @BeforeClass
     public static void setup() {
         simpleMovementTable = MovementTableFactory.simpleMovementTable();
-        verySimpleMovementTable = MovementTableFactory.verySimpleMovementTable();
-    }
-
-    @Test
-    @Ignore
-    public void checkFromSingleSource() {
-        shouldReturnCorrectNumberOfSequences('B', 32, 2, 1);
     }
 
     @Test
@@ -38,12 +29,5 @@ public class SequenceExtractorTest {
         SequenceExtractor extractor = SequenceExtractor.forMovementTable(simpleMovementTable).from(origin).length(length).vowels(vowels).create();
         long sequences = extractor.getNumberOfSequences();
         assertThat(sequences, is(equalTo(expected)));
-    }
-
-    @Test
-    public void test() {
-        SequenceExtractor extractor = SequenceExtractor.forMovementTable(MovementTableFactory.movementTable()).from('A').length(16).vowels(2).create();
-        long sequences = extractor.getNumberOfSequences2();
-        assertThat(sequences, is(equalTo(22l)));
     }
 }
