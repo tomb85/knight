@@ -19,16 +19,12 @@ public class SequenceExtractor {
     private int currentLength;
     private int currentVowels;
 
-    private Map<Character, SequenceInfo> sequenceInfos = Maps.newHashMap();
-    private SequenceInfo minSequenceInfo;
-
     public SequenceExtractor(MovementTable table, char from, int length, int maxVowels) {
         this.table = table;
         this.from = from;
         this.length = length;
         this.maxVowels = maxVowels;
     }
-
 
     public long getNumberOfSequences() {
 
